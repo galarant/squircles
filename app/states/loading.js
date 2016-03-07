@@ -14,9 +14,8 @@ class LoadingState extends Phaser.State {
     // ** LOAD APP-SPECIFIC ASSETS ** //
 
     // load app image assets
-    this.load.image("bg", "static/assets/app/bg.png");
-    this.load.image("ground", "static/assets/app/ground.png");
-    this.load.image("avatar", "static/assets/app/avatar.png");
+    this.load.image("squircle_outline", "static/assets/app/squircle_outline.png");
+    this.load.image("squircle_fill", "static/assets/app/squircle_fill.png");
 
     // ** LOAD DOMLESS PACKAGE ASSETS ** //
 
