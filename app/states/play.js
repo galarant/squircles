@@ -1,21 +1,23 @@
+import Squircle from "../sprites/play/squircle";
+
 class PlayState extends Phaser.State {
 
   preload() {
     // config input
     this.game.input.maxPointers = 1;
 
-    this.game.cursors = this.game.input.keyboard.createCursorKeys();
   }
 
   create() {
 
     // initialize game world
-    this.game.world.setBounds(0, 0, this.game.camera.width * 2, this.game.camera.height * 2);
+    this.game.world.setBounds(0, 0, this.game.camera.width, this.game.camera.height);
+    this.game.stage.backgroundColor = "#4488AA";
 
-    // add bg
-    this.game.bg = this.game.add.tileSprite(0, 0,
-      this.game.world.width, this.game.world.height, "bg");
-    this.game.bg.tileScale = new Phaser.Point(2.0, 2.0);
+    // create test squircle
+    let test_squircle = new Squircle(this.game,
+      this.game.world.centerX, this.game.world.centerY,
+      100, 100);
   }
 
   update() {
