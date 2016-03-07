@@ -11,13 +11,15 @@ class Squircle extends Phaser.Group {
     this.outline_sprite = new Phaser.Sprite(game, 0, 0, "squircle_outline");
     this.outline_sprite.width = width;
     this.outline_sprite.height = height;
+    this.outline_sprite.tint = Math.random() * 0xFFFFFF;
     this.add(this.outline_sprite);
 
     //add fill sprite
     this.fill_sprite = new Phaser.Sprite(game, 0, 0, "squircle_fill");
     this.fill_sprite.width = width;
     this.fill_sprite.height = height;
-    this.fill_sprite.alpha = 0;
+    this.fill_sprite.alpha = 0.1;
+    this.fill_sprite.tint = this.outline_sprite.tint;
     this.add(this.fill_sprite);
 
     //input handling
