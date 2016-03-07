@@ -3,7 +3,7 @@ class Squircle extends Phaser.Group {
   constructor(game, x, y, width, height) {
 
     //basic properties
-    super(game, game.world);
+    super(game);
     this.x = x;
     this.y = y;
 
