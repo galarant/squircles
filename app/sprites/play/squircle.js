@@ -1,20 +1,23 @@
 class Squircle extends Phaser.Group {
 
-  constructor(game, x, y, width, height) {
+  constructor(game, cell, x, y, width, height, color=0xFFFFFF) {
 
-    //basic properties
-    super(game);
+    // group properties
+    super(game, cell);
     this.x = x;
     this.y = y;
 
-    //add outline sprite
+    // squircle properties
+    this.cell = cell;
+
+    // add outline sprite
     this.outline_sprite = new Phaser.Sprite(game, 0, 0, "squircle_outline");
     this.outline_sprite.width = width;
     this.outline_sprite.height = height;
-    this.outline_sprite.tint = Math.random() * 0xFFFFFF;
+    this.outline_sprite.tint = color;
     this.add(this.outline_sprite);
 
-    //add fill sprite
+    // add fill sprite
     this.fill_sprite = new Phaser.Sprite(game, 0, 0, "squircle_fill");
     this.fill_sprite.width = width;
     this.fill_sprite.height = height;
@@ -22,7 +25,7 @@ class Squircle extends Phaser.Group {
     this.fill_sprite.tint = this.outline_sprite.tint;
     this.add(this.fill_sprite);
 
-    //input handling
+    // input handling
     this.outline_sprite.inputEnabled = true;
     this.outline_sprite.events.onInputOver.addOnce(this.touched, this);
   }
