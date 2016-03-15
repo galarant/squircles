@@ -4,8 +4,7 @@ import Cell from "./cell";
 
 class CellBlock extends Phaser.Group {
 
-  constructor(game, grid,
-      max_size=10, color=Math.random() * 0xFFFFFF) {
+  constructor(game, grid, max_size, color) {
     super(game);
     this.grid = grid;
     this.max_size = max_size;
