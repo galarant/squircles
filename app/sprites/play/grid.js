@@ -2,11 +2,12 @@ import _ from "lodash";
 
 import Squircle from "./squircle";
 import Cell from "./cell";
-import CellBlock from "./cell_block";
+import CellBlockGroup from "./cell_block_group";
 
 class Grid extends Phaser.Group {
 
-  constructor(game, cells_per_row=4) {
+  constructor(game, cells_per_row=4,
+      num_cell_block_groups=4, max_cells_per_cell_block=4) {
 
     // basic properties
     super(game, game.world);
@@ -19,7 +20,9 @@ class Grid extends Phaser.Group {
     this.cell_width = width / cells_per_row;
     this.cell_height = this.cell_width;
     this.cells = [];
-    this.cell_blocks = [];
+    this.num_cell_block_groups = num_cell_block_groups;
+    this.max_cells_per_cell_block = max_cells_per_cell_block;
+    this.cell_block_groups = [];
     this.make_cells();
 
     this.x = game.world.centerX - this.width / 2;
@@ -55,9 +58,13 @@ class Grid extends Phaser.Group {
 
   populate_cells() {
     // populate cells with squircles
-    // build cell_blocks
-    while (this.empty_cells.length > 0) {
-      this.cell_blocks.push(new CellBlock(this.game, this));
+    // build cell_block_groups
+    let cells_per_cbg = this.cells.length / this.num_cell_block_groups;
+    let max_cell_blocks_per_cbg = cells_per_cbg / this.max_cells_per_cell_block;
+    while (this.empty_cells.length > 0 &&
+        this.cell_block_groups.length < this.num_cell_block_groups) {
+      this.cell_block_groups.push(new CellBlockGroup(this.game, this,
+          max_cell_blocks_per_cbg, this.max_cells_per_cell_block));
     }
   }
 
