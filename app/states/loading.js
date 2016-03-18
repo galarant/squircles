@@ -2,19 +2,27 @@ class LoadingState extends Phaser.State {
 
   preload() {
     this.ready = false;
-
-    //show the preloader while assets are loading
     this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
-    this.preloader = this.add.sprite(this.game.world.centerX,
-                                     this.game.world.centerY,
-                                     "preloader");
-    this.preloader.anchor.setTo(0.5, 0.5);
-    this.load.setPreloadSprite(this.preloader);
+
+    // add loading text
+    this.loadingText = new Phaser.BitmapText(this.game, this.game.world.centerX,
+        this.game.world.centerY,"proxima_nova", "LOADING");
+    this.loadingText.anchor.setTo(0.5, 0.5);
+    this.world.add(this.loadingText);
+
+    // add loading squircle outline sprite
+    this.loadingSquircle = new Phaser.Sprite(this.game, this.game.world.centerX,
+        this.game.world.centerY, "squircle_outline");
+    this.loadingSquircle.anchor.setTo(0.5, 0.5);
+    let area = this.game.world.height * this.game.world.width;
+    this.loadingSquircle.width = Math.sqrt(area/20);
+    this.loadingSquircle.height = this.loadingSquircle.width;
+    this.loadingText.addChild(this.loadingSquircle);
+    this.world.add(this.loadingSquircle);
 
     // ** LOAD APP-SPECIFIC ASSETS ** //
 
     // load app image assets
-    this.load.image("squircle_outline", "static/assets/app/squircle_outline.png");
     this.load.image("squircle_fill", "static/assets/app/squircle_fill.png");
 
     // ** LOAD DOMLESS PACKAGE ASSETS ** //
@@ -27,17 +35,15 @@ class LoadingState extends Phaser.State {
     // load domless modal image assets
     this.load.image("modal_bg", "static/assets/domless/images/modal/bg.png");
 
-    // load domless fonts
-    this.load.bitmapFont("proxima_nova",
-      "static/assets/domless/fonts/proxima_nova.png",
-      "static/assets/domless/fonts/proxima_nova.xml");
   }
 
   create() {
-    this.preloader.cropEnabled = false;
+
   }
 
   update() {
+    this.loadingSquircle.angle += 1;
+
     if(this.ready) {
       this.game.state.start("play");
     }
