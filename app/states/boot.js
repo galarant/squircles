@@ -5,7 +5,14 @@ class BootState extends Phaser.State {
     this.game.scale.pageAlignVertically = true;
     this.game.scale.pageAlignHorizontally = true;
     this.game.scale.trackParentInterval = 500;
-    this.load.image("preloader", "static/assets/app/preloader.png");
+
+    // load assets
+    this.load.image("squircle_outline", "static/assets/app/squircle_outline.png");
+
+    // load domless fonts
+    this.load.bitmapFont("proxima_nova",
+      "static/assets/domless/fonts/proxima_nova.png",
+      "static/assets/domless/fonts/proxima_nova.xml");
   }
 
   create() {
