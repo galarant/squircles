@@ -11,7 +11,6 @@ class CellBlock extends Phaser.Group {
     this.y = starting_cell.y;
     this.max_size = max_size;
     this.color = color;
-    this.cells = [];
     this.add_cells();
     this.group_cells();
   }
@@ -19,7 +18,7 @@ class CellBlock extends Phaser.Group {
   add_cells() {
     let cell = this.starting_cell;
 
-    while (this.cells.length < this.max_size) {
+    while (this.children.length < this.max_size) {
       this.add_cell(cell);
       let open_neighbors = _.filter(cell.adjacent_cells, function(neighbor) {
         return !neighbor.squircle;
@@ -35,20 +34,19 @@ class CellBlock extends Phaser.Group {
   add_cell(cell) {
     cell.color = this.color;
     cell.add_squircle();
-    this.cells.push(cell);
+    this.add(cell);
   }
 
   group_cells() {
     // set the pos of this group
-    this.x = _.minBy(this.cells, "x").x;
-    this.y = _.minBy(this.cells, "y").y;
-    console.log("cell block:", this);
+    this.x = _.minBy(this.children, "x").x;
+    this.y = _.minBy(this.children, "y").y;
 
     // overwrite the pos of each cell
     // with the Group-relative value
     // then add it to the Group
     let cell_block = this;
-    _.forEach(this.cells, function(cell) {
+    _.forEach(this.children, function(cell) {
       cell.x = cell.x - cell_block.x;
       cell.y = cell.y - cell_block.y;
       cell_block.add(cell);
