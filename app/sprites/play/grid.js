@@ -63,8 +63,10 @@ class Grid extends Phaser.Group {
     let max_cell_blocks_per_cbg = cells_per_cbg / this.max_cells_per_cell_block;
     while (this.empty_cells.length > 0 &&
         this.cell_block_groups.length < this.num_cell_block_groups) {
-      this.cell_block_groups.push(new CellBlockGroup(this.game, this,
-          max_cell_blocks_per_cbg, this.max_cells_per_cell_block));
+      let cbg = new CellBlockGroup(this.game, this,
+          max_cell_blocks_per_cbg, this.max_cells_per_cell_block);
+      this.cell_block_groups.push(cbg);
+      this.add(cbg);
     }
   }
 
