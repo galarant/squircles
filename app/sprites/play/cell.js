@@ -8,17 +8,19 @@ class Cell extends Phaser.Group {
       x, y, width, height,
       squircle=null, color=0xFFFFFF) {
 
-    // group properties
+    // construction
     super(game, grid);
+
+    // init attribs
+    this.grid = grid;
     this.x = x;
     this.y = y;
     this.cell_width = width;
     this.cell_height = height;
-
-    // cell properties
-    this.grid = grid;
     this.index = new Phaser.Point(index.x, index.y);
     this.squircle = squircle;
+    this.activated = false;
+    this.activation_signal = new Phaser.Signal();
   }
 
   add_squircle() {
@@ -36,6 +38,12 @@ class Cell extends Phaser.Group {
     return _.filter(neighbors, function(o){
       return !!o;
     });
+  }
+
+  activate() {
+    console.log("activated", this);
+    this.activated = true;
+    this.activation_signal.dispatch();
   }
 
 }

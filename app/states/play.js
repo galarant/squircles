@@ -16,7 +16,7 @@ class PlayState extends Phaser.State {
     //this.game.stage.backgroundColor = "#4488AA";
 
     // create test grid
-    let test_grid = new Grid(this.game, 10);
+    let test_grid = new Grid(this.game, 5);
   }
 
   update() {
