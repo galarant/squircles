@@ -5,12 +5,20 @@ import Cell from "./cell";
 class CellBlock extends Phaser.Group {
 
   constructor(game, cell_block_group, starting_cell, max_size, color) {
+
+    // construction
     super(game, cell_block_group);
+
+    // init attribs
     this.starting_cell = starting_cell;
     this.x = starting_cell.x;
     this.y = starting_cell.y;
     this.max_size = max_size;
     this.color = color;
+    this.activated = false;
+    this.activation_signal = new Phaser.Signal();
+
+    // init methods
     this.add_cells();
     this.group_cells();
   }
@@ -35,6 +43,7 @@ class CellBlock extends Phaser.Group {
     cell.color = this.color;
     cell.add_squircle();
     this.add(cell);
+    cell.activation_signal.addOnce(this.child_activated, this);
   }
 
   group_cells() {
@@ -52,6 +61,15 @@ class CellBlock extends Phaser.Group {
       cell_block.add(cell);
     });
   }
+
+  child_activated() {
+    if (_.every(this.children, "activated")) {
+      this.activated = true;
+      this.activation_signal.dispatch();
+      console.log("activated", this);
+    }
+  }
+
 }
 
 export default CellBlock;

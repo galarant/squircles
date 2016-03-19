@@ -6,11 +6,19 @@ class CellBlockGroup extends Phaser.Group {
 
   constructor(game, grid, max_size,
       max_cells_per_cell_block, color=Math.random() * 0xFFFFFF) {
+
+    // construction
     super(game, grid);
+
+    // init attribs
     this.grid = grid;
     this.max_size = max_size;
     this.max_cells_per_cell_block= max_cells_per_cell_block;
     this.color = color;
+    this.activated = false;
+    this.activation_signal = new Phaser.Signal();
+
+    // init methods
     this.add_cell_blocks();
   }
 
@@ -26,8 +34,18 @@ class CellBlockGroup extends Phaser.Group {
       let cb = new CellBlock(this.game, this,
           block_starting_cell, this.max_cells_per_cell_block, this.color);
       this.add(cb);
+      cb.activation_signal.addOnce(this.child_activated, this);
     }
   }
+
+  child_activated() {
+    if (_.every(this.children, "activated")) {
+      this.activated = true;
+      console.log("activated", this);
+      this.activation_signal.dispatch();
+    }
+  }
+
 }
 
 export default CellBlockGroup;
