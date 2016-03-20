@@ -1,4 +1,3 @@
-import Squircle from "../sprites/play/squircle";
 import Grid from "../sprites/play/grid";
 
 class PlayState extends Phaser.State {
@@ -6,6 +5,7 @@ class PlayState extends Phaser.State {
   preload() {
     // config input
     this.game.input.maxPointers = 1;
+    this.game.time.advancedTiming = true;
 
   }
 
@@ -16,11 +16,12 @@ class PlayState extends Phaser.State {
     //this.game.stage.backgroundColor = "#4488AA";
 
     // create test grid
-    let test_grid = new Grid(this.game, 5);
+    new Grid(this.game, 10);
   }
 
   update() {
     // foo
+    this.game.debug.text("fps: " + this.game.time.fps, 2, 14, "#00ff00");
   }
 
 }

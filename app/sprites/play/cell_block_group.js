@@ -16,6 +16,7 @@ class CellBlockGroup extends Phaser.Group {
     this.max_cells_per_cell_block= max_cells_per_cell_block;
     this.color = color;
     this.activated = false;
+    this.open = false;
     this.activation_signal = new Phaser.Signal();
 
     // init methods
@@ -34,15 +35,16 @@ class CellBlockGroup extends Phaser.Group {
       let cb = new CellBlock(this.game, this,
           block_starting_cell, this.max_cells_per_cell_block, this.color);
       this.add(cb);
-      cb.activation_signal.addOnce(this.child_activated, this);
+      cb.activation_signal.add(this.child_activated, this);
     }
   }
 
   child_activated() {
     if (_.every(this.children, "activated")) {
-      this.activated = true;
       console.log("activated", this);
+      this.activated = true;
       this.activation_signal.dispatch();
+      this.grid.open_next_cbg();
     }
   }
 

@@ -1,7 +1,5 @@
 import _ from "lodash";
 
-import Cell from "./cell";
-
 class CellBlock extends Phaser.Group {
 
   constructor(game, cell_block_group, starting_cell, max_size, color) {
@@ -43,7 +41,7 @@ class CellBlock extends Phaser.Group {
     cell.color = this.color;
     cell.add_squircle();
     this.add(cell);
-    cell.activation_signal.addOnce(this.child_activated, this);
+    cell.activation_signal.add(this.child_activated, this);
   }
 
   group_cells() {
@@ -58,15 +56,14 @@ class CellBlock extends Phaser.Group {
     _.forEach(this.children, function(cell) {
       cell.x = cell.x - cell_block.x;
       cell.y = cell.y - cell_block.y;
-      cell_block.add(cell);
     });
   }
 
   child_activated() {
     if (_.every(this.children, "activated")) {
+      console.log("activated", this);
       this.activated = true;
       this.activation_signal.dispatch();
-      console.log("activated", this);
     }
   }
 
