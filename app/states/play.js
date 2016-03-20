@@ -16,12 +16,13 @@ class PlayState extends Phaser.State {
     //this.game.stage.backgroundColor = "#4488AA";
 
     // create test grid
-    new Grid(this.game, 10);
+    new Grid(this.game, 4);
   }
 
   update() {
     // foo
     this.game.debug.text("fps: " + this.game.time.fps, 2, 14, "#00ff00");
+    this.game.debug.text("Timer countdown:" + this.game.time.events.duration.toFixed(0), 32, 32);
   }
 
 }
