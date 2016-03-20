@@ -27,15 +27,17 @@ class Squircle extends Phaser.Group {
 
     // init input handling
     this.outline_sprite.inputEnabled = true;
-    this.outline_sprite.events.onInputOver.addOnce(this.touched, this);
+    this.outline_sprite.events.onInputOver.add(this.touched, this);
   }
 
   touched() {
-    this.game.add.tween(this.fill_sprite).to(
-      {"alpha": 1}, Phaser.Timer.SECOND * 0.25, "Linear", true);
-    this.cell.activate();
+    let this_cbg = this.parent.parent.parent;
+    if (!this.cell.activated && this_cbg.open) {
+      this.game.add.tween(this.fill_sprite).to(
+        {"alpha": 1}, Phaser.Timer.SECOND * 0.25, "Linear", true);
+      this.cell.activate();
+    }
   }
-
 }
 
 export default Squircle;

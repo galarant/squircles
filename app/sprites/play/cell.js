@@ -15,6 +15,7 @@ class Cell extends Phaser.Group {
     this.grid = grid;
     this.x = x;
     this.y = y;
+    this.color = color;
     this.cell_width = width;
     this.cell_height = height;
     this.index = new Phaser.Point(index.x, index.y);
@@ -31,10 +32,10 @@ class Cell extends Phaser.Group {
 
   get adjacent_cells() {
     let neighbors = [
-        this.grid.cell({x: this.index.x, y: this.index.y - 1}),
-        this.grid.cell({x: this.index.x, y: this.index.y + 1}),
-        this.grid.cell({x: this.index.x - 1, y: this.index.y}),
-        this.grid.cell({x: this.index.x + 1, y: this.index.y})];
+      this.grid.cell({x: this.index.x, y: this.index.y - 1}),
+      this.grid.cell({x: this.index.x, y: this.index.y + 1}),
+      this.grid.cell({x: this.index.x - 1, y: this.index.y}),
+      this.grid.cell({x: this.index.x + 1, y: this.index.y})];
     return _.filter(neighbors, function(o){
       return !!o;
     });

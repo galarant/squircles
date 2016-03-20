@@ -1,6 +1,5 @@
 import _ from "lodash";
 
-import Squircle from "./squircle";
 import Cell from "./cell";
 import CellBlockGroup from "./cell_block_group";
 
@@ -12,7 +11,6 @@ class Grid extends Phaser.Group {
     // basic properties
     super(game, game.world);
     let width = _.min([game.world.width, game.world.height]);
-    let height = width;
 
     // add cells
     this.cells_per_row = cells_per_row;
@@ -24,6 +22,8 @@ class Grid extends Phaser.Group {
     this.max_cells_per_cell_block = max_cells_per_cell_block;
     this.cell_block_groups = [];
     this.make_cells();
+    this.populate_cells();
+    this.open_next_cbg();
 
     this.x = game.world.centerX - this.width / 2;
     this.y = game.world.centerY - this.height / 2;
@@ -53,7 +53,6 @@ class Grid extends Phaser.Group {
       pos.y += grid.cell_height;
       cell_index.y += 1;
     });
-    this.populate_cells();
   }
 
   populate_cells() {
@@ -68,6 +67,19 @@ class Grid extends Phaser.Group {
       this.cell_block_groups.push(cbg);
       this.add(cbg);
     }
+  }
+
+  open_next_cbg() {
+    let next_cbg = null;
+    let closed_cbgs = _.filter(this.cell_block_groups, function(cbg) {
+      return !cbg.open;
+    });
+    if (closed_cbgs.length > 0) {
+      next_cbg = closed_cbgs[0];
+      next_cbg.open = true;
+      console.log("opened cbg:", next_cbg);
+    }
+    return next_cbg;
   }
 
   cell(cell_index) {
