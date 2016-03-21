@@ -42,29 +42,33 @@ class CellBlockGroup extends Phaser.Group {
     if (_.every(this.children, "activated")) {
       this.status = "activated";
       this.activation_signal.dispatch();
-      this.grid.open_next_cbg();
       console.log("activated CBG:", this);
-      this.graphics = new Phaser.Graphics(this.game).beginFill(this.color, 1)
-                  .drawCircle(10, 10, 30);
-      this.add(this.graphics);
-      // each time a cbg is activated start the timer
+      this.grid.open_next_cbg();
+      this.timer_visual();
       this.cbg_timer = this.game.time.events.add(Phaser.Timer.SECOND * 5,
-                      this.cellBlockGroup_deactivate, this);
+                      this.deactivate, this);
     }
   }
 
-  cellBlockGroup_deactivate() {
-    this.game.add.tween(this.graphics).to({alpha: 0}, Phaser.Timer.SECOND * 5,
+  timer_visual() {
+    this.dot = new Phaser.Graphics(this.game).beginFill(this.color, 1)
+                .drawCircle(10, 10, 30);
+    this.add(this.dot);
+    this.game.add.tween(this.dot).to({alpha: 0}, Phaser.Timer.SECOND * 5,
                         "Linear", true);
-    this.activated = false;
-    console.log(this, "activated:", this.activated);
-    /*
-    _.forEach(this.children, function(CellBlock) {
-      CellBlock.activated = false;
-    });
-    console.log(this.children, "children activated:", this.CellBlock.activated);
-    */
   }
+
+  deactivate() {
+    this.dot.destroy();
+    this.status = "open";
+    console.log(this, "status:", this.status);
+    console.log("Children:", this.children);
+    _.forEach(this.children, function(child) {
+      child.deactivate();
+      console.log("CBG child activated:", child.activated);
+    });
+  }
+
 }
 
 export default CellBlockGroup;
