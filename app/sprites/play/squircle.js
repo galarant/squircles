@@ -32,7 +32,7 @@ class Squircle extends Phaser.Group {
 
   touched() {
     let this_cbg = this.parent.parent.parent;
-    if (!this.cell.activated && this_cbg.open) {
+    if (!this.cell.activated && this_cbg.status === "open") {
       this.game.add.tween(this.fill_sprite).to(
         {"alpha": 1}, Phaser.Timer.SECOND * 0.25, "Linear", true);
       this.cell.activate();
