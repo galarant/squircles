@@ -72,11 +72,11 @@ class Grid extends Phaser.Group {
   open_next_cbg() {
     let next_cbg = null;
     let closed_cbgs = _.filter(this.cell_block_groups, function(cbg) {
-      return !cbg.open;
+      return cbg.status === "pending";
     });
     if (closed_cbgs.length > 0) {
       next_cbg = closed_cbgs[0];
-      next_cbg.open = true;
+      next_cbg.status = "open";
       console.log("opened cbg:", next_cbg);
     }
     return next_cbg;

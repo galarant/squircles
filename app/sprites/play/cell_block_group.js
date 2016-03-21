@@ -15,8 +15,7 @@ class CellBlockGroup extends Phaser.Group {
     this.max_size = max_size;
     this.max_cells_per_cell_block= max_cells_per_cell_block;
     this.color = color;
-    this.activated = false;
-    this.open = false;
+    this.status = "pending";
     this.activation_signal = new Phaser.Signal();
 
     // init methods
@@ -41,10 +40,10 @@ class CellBlockGroup extends Phaser.Group {
 
   child_activated() {
     if (_.every(this.children, "activated")) {
-      console.log("activated", this);
-      this.activated = true;
+      this.status = "activated";
       this.activation_signal.dispatch();
       this.grid.open_next_cbg();
+      console.log("activated CBG:", this);
     }
   }
 

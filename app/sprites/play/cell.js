@@ -42,9 +42,9 @@ class Cell extends Phaser.Group {
   }
 
   activate() {
-    console.log("activated", this);
     this.activated = true;
     this.activation_signal.dispatch();
+    console.log("activated Cell:", this);
   }
 
 }

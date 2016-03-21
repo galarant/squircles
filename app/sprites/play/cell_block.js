@@ -61,9 +61,9 @@ class CellBlock extends Phaser.Group {
 
   child_activated() {
     if (_.every(this.children, "activated")) {
-      console.log("activated", this);
       this.activated = true;
       this.activation_signal.dispatch();
+      console.log("activated CellBlock:", this);
     }
   }
 
