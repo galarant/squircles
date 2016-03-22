@@ -47,6 +47,9 @@ class Cell extends Phaser.Group {
     console.log("activated Cell:", this);
   }
 
+  deactivate() {
+    this.activated = false;
+  }
 }
 
 export default Cell;

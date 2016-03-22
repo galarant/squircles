@@ -67,6 +67,14 @@ class CellBlock extends Phaser.Group {
     }
   }
 
+  deactivate() {
+    this.activated = false;
+    _.forEach(this.children, function(child) {
+      child.deactivate();
+      console.log("CB child activated:", child.activated);
+    });
+  }
+
 }
 
 export default CellBlock;
