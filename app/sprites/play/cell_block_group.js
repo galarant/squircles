@@ -45,21 +45,16 @@ class CellBlockGroup extends Phaser.Group {
       console.log("activated CBG:", this);
       this.grid.open_next_cbg();
       this.timer_visual();
-      this.cbg_timer = this.game.time.events.add(Phaser.Timer.SECOND * 5,
+      this.cbg_timer = this.game.time.events.add(Phaser.Timer.SECOND * 3,
                       this.deactivate, this);
     }
   }
 
   timer_visual() {
-    this.dot = new Phaser.Graphics(this.game).beginFill(this.color, 1)
-                .drawCircle(10, 10, 30);
-    this.add(this.dot);
-    this.game.add.tween(this.dot).to({alpha: 0}, Phaser.Timer.SECOND * 5,
-                        "Linear", true);
+      this.game.add.tween(this).to({alpha: 0.1}, Phaser.Timer.SECOND * 3, "Linear", true);
   }
 
   deactivate() {
-    this.dot.destroy();
     this.status = "open";
     console.log(this, "status:", this.status);
     console.log("Children:", this.children);
