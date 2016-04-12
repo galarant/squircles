@@ -1,4 +1,5 @@
 import Grid from "../sprites/play/grid";
+import Modal from "../interface/modal";
 
 class PlayState extends Phaser.State {
 
@@ -25,6 +26,18 @@ class PlayState extends Phaser.State {
     this.game.debug.text("Timer countdown:" + this.game.time.events.duration.toFixed(0), 32, 32);
   }
 
+  gameOver() {
+    this.gameOverText = new Phaser.BitmapText(this.game, this.game.camera.width / 2,
+                          this.game.camera.height / 2, "proxima_nova",
+                          "GAME OVER\n\nTAP OR CLICK TO RESTART",
+                          this.game.camera.width / 20, "center");
+    let gameOverModal = new Modal(this.game, this.gameOverText);
+    gameOverModal.submitSignal.addOnce(this.restart, this);
+  }
+
+  restart() {
+    this.game.state.start("play");
+  }
 }
 
 export default PlayState;
