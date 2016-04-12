@@ -62,7 +62,7 @@ class CellBlockGroup extends Phaser.Group {
       child.deactivate();
       console.log("CBG child activated:", child.activated);
     });
-    this.game.state.start("gameover");
+    this.game.state.states.play.gameOver();
   }
 
 }
