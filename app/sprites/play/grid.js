@@ -77,7 +77,6 @@ class Grid extends Phaser.Group {
     if (closed_cbgs.length > 0) {
       next_cbg = closed_cbgs[0];
       next_cbg.status = "open";
-      console.log("opened cbg:", next_cbg);
     }
     return next_cbg;
   }
@@ -98,6 +97,18 @@ class Grid extends Phaser.Group {
   get populated_cells() {
     return _.filter(this.cells, function(cell) {
       return !!cell.squircle;
+    });
+  }
+
+  get open_cbg() {
+    return _.find(this.cell_block_groups, function(cbg) {
+      return cbg.status === "open";
+    });
+  }
+
+  get activated_cbgs() {
+    return _.filter(this.cell_block_groups, function(cbg) {
+      return cbg.status === "activated";
     });
   }
 }

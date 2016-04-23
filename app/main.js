@@ -11,4 +11,3 @@ game.state.add("play", PlayState);
 
 // start on boot state
 game.state.start("boot");
-

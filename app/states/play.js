@@ -7,7 +7,7 @@ class PlayState extends Phaser.State {
     // config input
     this.game.input.maxPointers = 1;
     this.game.time.advancedTiming = true;
-
+    this.game.e2e = {};
   }
 
   create() {
@@ -17,13 +17,16 @@ class PlayState extends Phaser.State {
     //this.game.stage.backgroundColor = "#4488AA";
 
     // create test grid
-    new Grid(this.game, 4);
+    let grid = new Grid(this.game, 5);
+    this.game.grid = grid;
   }
 
   update() {
-    // foo
-    this.game.debug.text("fps: " + this.game.time.fps, 2, 14, "#00ff00");
-    this.game.debug.text("Timer countdown:" + this.game.time.events.duration.toFixed(0), 32, 32);
+    this.game.debug.text("fps: " + this.game.time.fps, 30, 15, "#00ff00");
+    this.game.debug.text("Timer countdown:" + this.game.time.events.duration.toFixed(0), 30, 30);
+    if (this.game.e2eUpdate) {
+      this.game.e2eUpdate.call(this);
+    }
   }
 
   gameOver() {
