@@ -4,7 +4,7 @@ import CellBlock from "./cell_block";
 
 class CellBlockGroup extends Phaser.Group {
 
-  constructor(game, grid, max_size,
+  constructor(game, grid, max_cell_blocks,
       max_cells_per_cell_block, color=Math.random() * 0xFFFFFF) {
 
     // construction
@@ -12,11 +12,12 @@ class CellBlockGroup extends Phaser.Group {
 
     // init attribs
     this.grid = grid;
-    this.max_size = max_size;
+    this.max_cell_blocks = max_cell_blocks;
     this.max_cells_per_cell_block= max_cells_per_cell_block;
     this.color = color;
     this.status = "pending";
     this.activation_signal = new Phaser.Signal();
+    this.cell_blocks = [];
 
     // init methods
     this.add_cell_blocks();
@@ -24,7 +25,7 @@ class CellBlockGroup extends Phaser.Group {
 
   add_cell_blocks() {
     while(this.grid.empty_cells.length > 0 &&
-        this.children.length < this.max_size) {
+        this.cell_blocks.length < this.max_cell_blocks) {
 
       let block_starting_cell = _.sample(this.grid.empty_cells);
       if (!block_starting_cell) {
@@ -34,12 +35,13 @@ class CellBlockGroup extends Phaser.Group {
       let cb = new CellBlock(this.game, this,
           block_starting_cell, this.max_cells_per_cell_block, this.color);
       this.add(cb);
+      this.cell_blocks.push(cb);
       cb.activation_signal.add(this.child_activated, this);
     }
   }
 
   child_activated() {
-    if (_.every(this.children, "activated")) {
+    if (_.every(this.cell_blocks, "activated")) {
       this.status = "activated";
       this.activation_signal.dispatch();
       console.log("activated CBG:", this);
