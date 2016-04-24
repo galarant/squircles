@@ -13,6 +13,16 @@ module.exports = {
   */
 
   /**
+   * Sets focus on the browser window
+   */
+  "Set Focus on Browser Window": function(client) {
+    client
+      .execute("alert('Setting Focus');")
+      .pause(200)
+      .acceptAlert();
+  },
+
+  /**
    * Tests your game"s webpage can be served
    * When this fails, it usually means your webserver"s not up.
    * Or you forgot to `npm start`
@@ -20,7 +30,7 @@ module.exports = {
    * @test
    * @param client
    */
-  "Phaser Game Boots Test" : function (client) {
+  "Phaser Game Boots Test": function (client) {
     var squircles = client.page.squircles();
     squircles.navigate()
       .waitForElementVisible("body", 1000);
@@ -65,8 +75,10 @@ module.exports = {
   "Demo Player Control from Tests": function (client) {
 
     client
+      .pause(1000)
       .touchSquircles(2000)
-      .waitForCBGActivated(5000);
-      //.end();
+      .waitForCBGActivated(5000)
+      .pause(1000)
+      .end();
   }
 };
