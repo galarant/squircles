@@ -2,7 +2,7 @@
 *.log
 
 # Bundled project files
-static/dist
+dist
 
 # Dependency directories
 node_modules

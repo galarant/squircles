@@ -4,7 +4,7 @@
   "description": "Just a fun little canvas game",
   "main": "index.js",
   "scripts": {
-    "test": "nightwatch --config ./test/nightwatch.json -e chrome",
+    "test": "nightwatch --config ./test/nightwatch.conf.js -e chrome",
     "watch": "webpack --watch",
     "serve": "webpack-dev-server --port 8000"
   },

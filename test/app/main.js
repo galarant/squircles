@@ -1,21 +1,11 @@
-module.exports = {
+let tests = {
   /**
    * things to do before your tests start.
-   * In this case, I"m resizing the browser window, so I can see the test output
-   * and the game running on the same tiny laptop screen.  *
+   * In this case, I'm setting the focus on the browser window
    * method before
-   * @param browser
+   * @param client
    */
-  /*
-  before: function(browser){
-    //browser.resizeWindow(800, 600);
-  },
-  */
-
-  /**
-   * Sets focus on the browser window
-   */
-  "Set Focus on Browser Window": function(client) {
+  before: function(client) {
     client
       .execute("alert('Setting Focus');")
       .pause(200)
@@ -31,7 +21,7 @@ module.exports = {
    * @param client
    */
   "Phaser Game Boots Test": function (client) {
-    var squircles = client.page.squircles();
+    let squircles = client.page.squircles();
     squircles.navigate()
       .waitForElementVisible("body", 1000);
   },
@@ -82,3 +72,5 @@ module.exports = {
       .end();
   }
 };
+
+module.exports = tests;
