@@ -1,75 +1,51 @@
-var _ = require("lodash");
-
-var util = require("util");
-var events = require("events");
+import events from "events";
 
 /**
- * Recognizes that the grid exists
+ * Touches all of the cells on the grid
  * and continues the tests.
- *
- * ```
- * this.demoTest = function (client) {
- *   client.touchSquircles(500);
- * };
- * ```
- *
- * @method pause
- * @param {number} ms The number of milliseconds to touch for
- * @param {function} [callback] Optional callback function to be called when the command finishes.
- * @api commands
  */
 
-function TouchSquircles() {
-  events.EventEmitter.call(this);
-}
-
-util.inherits(TouchSquircles, events.EventEmitter);
-
-
-TouchSquircles.prototype.command = function(ms, cb) {
-  var self = this;
-
-  // If we don"t pass the milliseconds, the client will
-  // be suspended indefinitely
-  if (!ms) {
-    return this;
+class TouchSquircles extends events.EventEmitter {
+  constructor() {
+    super();
   }
 
-  this.api.executeAsync(function(ms, done) {
-    self.phaser = window.Phaser;
-    self.game = self.phaser.GAMES[0];
-    self.game.stage.disableVisibilityChange = true;
+  command(ms, cb) {
+    let _ = require("lodash");
+    let self = this;
 
-    self.game.e2eUpdate = function() {
-      self.game.debug.text("foobar", 30, 45, "#00ff00");
-    };
-
-    console.log("open cbg:", self.game.grid.open_cbg);
-    _.forEach(self.game.grid.cells, function(cell) {
-      cell.squircle.touched();
-      console.log("touched cell");
-    });
-
-    setTimeout(function() {
-      self.game.e2eUpdate = null;
-      done();
-    }, ms);
-
-  },
-
-  [ms],
-
-  function() {
-    console.log("running TouchSquircles main");
-
-    if (cb) {
-      cb.call(self);
+    // If we don"t pass the milliseconds, the client will
+    // be suspended indefinitely
+    if (!ms) {
+      return this;
     }
 
-    self.emit("complete");
-  });
+    this.api.executeAsync(function(ms, done) {
+      this.game = window.Phaser.GAMES[0];
+      this.game.stage.disableVisibilityChange = true;
 
-  return this;
-};
+      _.forEach(this.game.grid.cells, function(cell) {
+        cell.squircle.touched();
+      });
+
+      setTimeout(function() {
+        done();
+      }, ms);
+
+    },
+
+    [ms],
+
+    function() {
+      if (cb) {
+        cb.call(this);
+      }
+
+      self.emit("complete");
+    });
+
+    return this;
+  }
+}
 
 module.exports = TouchSquircles;

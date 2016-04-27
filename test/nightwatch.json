@@ -5,6 +5,7 @@
   "custom_assertions_path" : ["./node_modules/phase-2-e/lib/custom-assertions/", "./test/custom-assertions"],
   "page_objects_path" : "./test/page-objects",
   "globals_path" : "",
+  "waitForConditionPollInterval": 100,
 
   "selenium" : {
     "start_process" : true,
