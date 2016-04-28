@@ -7,15 +7,11 @@ Install dependencies:
 
 `$ npm install`
 
-Run local server (port 8000):
+Run local dev server (port 8000, actively watches file changes):
 
-`$ npm run serve`
+`$ npm run dev`
 
-Run active dev rebuild:
-
-`$ npm run watch`
-
-Run tests:
+Run tests (need dev server running first):
 
 `$ npm run test`
 
