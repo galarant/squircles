@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "nightwatch --config ./test/nightwatch.conf.js -e chrome",
-    "watch": "webpack --watch",
-    "serve": "webpack-dev-server --port 8000"
+    "dev": "NODE_ENV=dev webpack --watch"
   },
   "repository": {
     "type": "git",

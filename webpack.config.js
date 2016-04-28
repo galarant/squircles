@@ -1,9 +1,10 @@
-/* global __dirname */
+/* global __dirname process */
 
-var path = require("path");
-var webpack = require("webpack");
+var path = require("path"); var webpack = require("webpack");
+var WebpackDevServer = require("webpack-dev-server");
+var env = process.env.NODE_ENV;
 
-module.exports = {
+var config = {
   // create sourcemaps for the bundle
   devtool: "source-map",
 
@@ -13,7 +14,9 @@ module.exports = {
   // where do the bundle files get written to
   output: {
     path: path.resolve(__dirname, "static", "dist"),
-    filename: "bundle.js"
+    filename: "bundle.js",
+    publicPath: "/static"
+
   },
 
   // custom translations and stuff
@@ -42,3 +45,21 @@ module.exports = {
   }
 
 };
+
+if (env === "dev") {
+  new WebpackDevServer(webpack(config), {
+    contentBase: "./",
+    hot: true,
+    debug: true,
+    inline: true
+  }).listen(8000, "localhost", function (err) {
+    if (err) {
+      console.log(err);
+    }
+  });
+  console.log("-------------------------");
+  console.log("Local web server runs at http://localhost:8000");
+  console.log("-------------------------");
+}
+
+module.exports = config;
