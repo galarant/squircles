@@ -65,7 +65,6 @@ class CellBlock extends Phaser.Group {
     if (_.every(this.cells, "activated")) {
       this.activated = true;
       this.activation_signal.dispatch();
-      console.log("activated CellBlock:", this);
     }
   }
 
@@ -73,7 +72,6 @@ class CellBlock extends Phaser.Group {
     this.activated = false;
     _.forEach(this.children, function(child) {
       child.deactivate();
-      console.log("CB child activated:", child.activated);
     });
   }
 

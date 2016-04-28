@@ -44,7 +44,6 @@ class CellBlockGroup extends Phaser.Group {
     if (_.every(this.cell_blocks, "activated")) {
       this.status = "activated";
       this.activation_signal.dispatch();
-      console.log("activated CBG:", this);
       this.grid.open_next_cbg();
       this.timer_visual();
       this.cbg_timer = this.game.time.events.add(Phaser.Timer.SECOND * 3,
@@ -53,16 +52,13 @@ class CellBlockGroup extends Phaser.Group {
   }
 
   timer_visual() {
-      this.game.add.tween(this).to({alpha: 0.1}, Phaser.Timer.SECOND * 3, "Linear", true);
+    this.game.add.tween(this).to({alpha: 0.1}, Phaser.Timer.SECOND * 3, "Linear", true);
   }
 
   deactivate() {
     this.status = "open";
-    console.log(this, "status:", this.status);
-    console.log("Children:", this.children);
     _.forEach(this.children, function(child) {
       child.deactivate();
-      console.log("CBG child activated:", child.activated);
     });
     this.game.state.states.play.gameOver();
   }
