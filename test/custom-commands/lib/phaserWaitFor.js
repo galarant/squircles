@@ -1,7 +1,6 @@
-import WaitFor from "../../node_modules/phase-2-e/lib/custom-commands/_waitFor";
+import WaitFor from "../../../node_modules/phase-2-e/lib/custom-commands/_waitFor";
 
-/**
- * Waits a given time in milliseconds for a condition
+/** * Waits a given time in milliseconds for a condition
  * on a Phaser component to return true.
  *
  * If the condition does not return true in the specified time,
@@ -41,7 +40,8 @@ class PhaserWaitFor extends WaitFor {
     return this.protocol.execute(this.condition, [],
       function (result) {
         callback.call(this, result);
-      });
+      }
+    );
   }
 }
 

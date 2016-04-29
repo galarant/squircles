@@ -1,4 +1,4 @@
-import PhaserWaitFor from "./phaserWaitFor";
+import PhaserWaitFor from "../lib/phaserWaitFor";
 
 /**
  * Waits for a single CBG to be in the active state.

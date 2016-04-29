@@ -10,15 +10,15 @@ class PhaserCommand extends events.EventEmitter {
   }
 
   // this method name and format is needed for nightwatch
-  command(ms) {
+  command() {
     let self = this;
 
     // the phaserCommand method is delegated to the child class
-    this.api.executeAsync(this.phaserCommand, [ms],
-
-    function() {
-      self.emit("complete");
-    });
+    this.api.executeAsync(this.phaserCustomCommand, [],
+      function() {
+        self.emit("complete");
+      }
+    );
 
     return this;
   }
