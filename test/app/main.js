@@ -65,10 +65,10 @@ let tests = {
   "Demo Player Control from Tests": function (client) {
 
     client
-      .pause(1000)
-      .touchSquircles(2000)
+      .pause(500)
+      .touchSquircles()
       .waitForCBGActivated(5000)
-      .pause(1000)
+      .pause(500)
       .end();
   }
 };
