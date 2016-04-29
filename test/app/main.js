@@ -66,9 +66,10 @@ let tests = {
 
     client
       .pause(500)
+      .showCustomDebug(2000)
       .touchSquircles()
       .waitForCBGActivated(5000)
-      .pause(500)
+      .pause(3000)
       .end();
   }
 };
