@@ -7,16 +7,14 @@ class PlayState extends Phaser.State {
     // config input
     this.game.input.maxPointers = 1;
     this.game.time.advancedTiming = true;
-    this.game.e2e = {};
   }
 
   create() {
 
     // initialize game world
     this.game.world.setBounds(0, 0, this.game.camera.width, this.game.camera.height);
-    //this.game.stage.backgroundColor = "#4488AA";
 
-    // create test grid
+    // create grid
     let grid = new Grid(this.game, 5);
     this.game.grid = grid;
   }

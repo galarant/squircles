@@ -3,11 +3,13 @@
   "output_folder" : "./test/reports",
   "custom_commands_path" : [
     "./node_modules/phase-2-e/lib/custom-commands/",
-    "./test/custom-commands/app/"
+    "./test/custom-commands/app/",
+    "./test/custom-commands/app/sprites/play/"
   ],
   "custom_assertions_path" : [
     "./node_modules/phase-2-e/lib/custom-assertions/",
-    "./test/custom-assertions"
+    "./test/custom-assertions",
+    "./test/custom-assertions/app/states/play/"
   ],
   "page_objects_path" : "./test/page-objects",
   "globals_path" : "",
