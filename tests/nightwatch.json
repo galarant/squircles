@@ -1,24 +1,24 @@
 {
-  "src_folders" : ["./test/app"],
-  "output_folder" : "./test/reports",
+  "src_folders" : ["./tests/app"],
+  "output_folder" : "./tests/reports",
   "custom_commands_path" : [
     "./node_modules/phase-2-e/lib/custom-commands/",
-    "./test/custom-commands/app/",
-    "./test/custom-commands/app/sprites/play/"
+    "./tests/custom-commands/app/",
+    "./tests/custom-commands/app/sprites/play/"
   ],
   "custom_assertions_path" : [
     "./node_modules/phase-2-e/lib/custom-assertions/",
-    "./test/custom-assertions",
-    "./test/custom-assertions/app/states/play/"
+    "./tests/custom-assertions",
+    "./tests/custom-assertions/app/states/play/"
   ],
-  "page_objects_path" : "./test/page-objects",
+  "page_objects_path" : "./tests/page-objects",
   "globals_path" : "",
   "waitForConditionPollInterval": 100,
 
   "selenium" : {
     "start_process" : true,
     "server_path" : "./node_modules/selenium-server-standalone-jar/jar/selenium-server-standalone-2.53.0.jar",
-    "log_path" : "./test",
+    "log_path" : "./tests",
     "host" : "127.0.0.1",
     "port" : 4444,
     "cli_args" : {
