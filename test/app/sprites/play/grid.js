@@ -22,22 +22,14 @@ let tests = {
   },
 
   /**
-   * Tests that the page can be served
+   * Tests that Phaser.game.grid exists
    */
-  "Phaser Game Boots Test": function(client) {
+  "Phaser.game.grid Exists Test": function(client) {
     client
-      .waitForElementVisible("body", 1000);
-  },
-
-  /**
-   * Tests that Phaser and Phaser.Game are loaded
-   * and that the expected state is reached by Phaser.StateManager
-   */
-  "Phaser Game Loads Test": function(client) {
-    client
-      .waitForPhaser(5000)
-      .waitForGame(5000);
+      .waitForGridExists(5000)
+      .end();
   }
+
 };
 
 module.exports = tests;

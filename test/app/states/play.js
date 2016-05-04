@@ -22,21 +22,25 @@ let tests = {
   },
 
   /**
-   * Tests that the page can be served
+   * Tests that the play state is loaded
    */
-  "Phaser Game Boots Test": function(client) {
+  "Play State Loads Test": function(client) {
     client
-      .waitForElementVisible("body", 1000);
+      .waitForState("play", 5000)
+      .assert.currentState("play");
   },
 
   /**
-   * Tests that Phaser and Phaser.Game are loaded
-   * and that the expected state is reached by Phaser.StateManager
+   * Tests that maxPointers === 1
    */
-  "Phaser Game Loads Test": function(client) {
+  "maxPointers Test": function(client) {
     client
-      .waitForPhaser(5000)
-      .waitForGame(5000);
+      .assert.maxPointers(1);
+  },
+
+  "worldBounds Test": function(client) {
+    client
+      .assert.worldBounds(true);
   }
 };
 
