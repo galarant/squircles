@@ -4,7 +4,8 @@
   "custom_commands_path" : [
     "./node_modules/phase-2-e/lib/custom-commands/",
     "./tests/custom-commands/app/",
-    "./tests/custom-commands/app/sprites/play/"
+    "./tests/custom-commands/app/sprites/play/",
+    "./tests/custom-commands/app/states/play/"
   ],
   "custom_assertions_path" : [
     "./node_modules/phase-2-e/lib/custom-assertions/",

@@ -9,7 +9,7 @@ exports.assertion = function(expected) {
    * The message which will be used in the test output and
    * inside the XML reports
    */
-  this.message = "Asserting game.world.bounds matches game.camera.bounds";
+  this.message = "Asserting state.subState is " + this.expected;
 
   /**
    * Performs a command and its result is
@@ -18,12 +18,14 @@ exports.assertion = function(expected) {
    * Anything inside this.api.execute will run directly on the browser.
    */
   this.command = function(callback) {
-    let _ = require("lodash");
-
     return this.api.execute(function() {
+      // get game and state
+      // don't pause game on visibility change
       let game = window.Phaser.GAMES[0];
-      let assertionPasses = _.isEqual(game.world.bounds, game.camera.bounds); 
-      return assertionPasses;
+      let state = game.state.states[game.state.current];
+      game.stage.disableVisibilityChange = true;
+
+      return state.subState;
     }, [this.expected], callback);
   };
 
