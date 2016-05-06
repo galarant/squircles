@@ -24,23 +24,35 @@ let tests = {
   /**
    * Tests that the play state is loaded
    */
-  "Play State Loads Test": function(client) {
+  "Play State Loads": function(client) {
     client
       .waitForState("play", 5000)
       .assert.currentState("play");
   },
 
   /**
-   * Tests that maxPointers === 1
+   * Tests that the play state initialized correctly
    */
-  "maxPointers Test": function(client) {
+  "Play State Initialized": function(client) {
     client
-      .assert.maxPointers(1);
+      .assert.maxPointers(1)
+      .assert.worldBounds(true)
+      .assert.subState("playing");
   },
 
-  "worldBounds Test": function(client) {
+  "Game Over": function(client) {
     client
-      .assert.worldBounds(true);
+      .gameOver(1000)
+      .assert.subState("game_over")
+      .gameInputDown()
+      .pause(1000)
+      .assert.subState("playing");
+  },
+
+  "Game Restart": function(client) {
+    client
+      .gameInputDown()
+      .assert.subState("playing");
   }
 };
 

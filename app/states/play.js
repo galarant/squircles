@@ -17,6 +17,7 @@ class PlayState extends Phaser.State {
     // create grid
     let grid = new Grid(this.game, 5);
     this.game.grid = grid;
+    this.subState = "playing";
   }
 
   update() {
@@ -28,12 +29,13 @@ class PlayState extends Phaser.State {
   }
 
   gameOver() {
-    this.gameOverText = new Phaser.BitmapText(this.game, this.game.camera.width / 2,
+    let gameOverText = new Phaser.BitmapText(this.game, this.game.camera.width / 2,
                           this.game.camera.height / 2, "proxima_nova",
                           "GAME OVER\n\nTAP OR CLICK TO RESTART",
                           this.game.camera.width / 20, "center");
-    let gameOverModal = new Modal(this.game, this.gameOverText);
-    gameOverModal.submitSignal.addOnce(this.restart, this);
+    this.gameOverModal = new Modal(this.game, gameOverText);
+    this.gameOverModal.submitSignal.addOnce(this.restart, this);
+    this.subState = "game_over";
   }
 
   restart() {
